@@ -30,8 +30,14 @@ namespace ReturnMiddleCharacters
         {
             foreach (string t in TestCases)
             {
-                Console.WriteLine($"'{t}' middle '{t.MidChars()}'");
+                Console.WriteLine($"'{t}' middle '{MidChars(t)}'");
             }
+        }
+
+        public static string MidChars(string text)
+        {
+            if (string.IsNullOrEmpty(text) || text.Length < 3) return text;
+            return (text.Length % 2) == 1 ? text.Substring(text.Length / 2, 1) : text.Substring((text.Length - 1) / 2, 2);
         }
 
 

@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<h2>Ancestors and Offspring</h2>
+
+<script>
+    /*
+     * Try finding your ancestors and offspring with code.
+        Create a function that takes a number x and a character y ("m" for male, "f" for female), and returns the name of an ancestor (m/f) or descendant (m/f).
+    •	If the number is negative, return the related ancestor.
+    •	If positive, return the related descendant.
+    •	You are generation 0. In the case of 0 (male or female), return "me!".
+
+        Q: Is this the entire domain & range or just a sample?  Since the instructions above do not mention
+            sample set or bounds, assuming this is a sample.
+
+        Generation	        Male	            Female
+            -3	            great grandfather   great grandmother
+            -2	            grandfather	        grandmother
+            -1	            father	            mother
+            0	            me!	                me!
+            1	            son	                daughter
+            2	            grandson	        granddaughter
+            3	            great grandson	    great granddaughter
+
+         Notes
+            Check the Resources tab for helpful hints.
+
+          Q: What is the Resources tab?
+
+     */
+
+    const testCases = [
+        { "x": "a", "y": "m" },
+        { "x": 5000, "y": "m" },
+        { "x": -5000, "y": "m" },
+        { "x": 2, "y": 0 },
+        { "x": 2, "y": "q" },
+        { "x": 0, "y": "m" },
+        { "x": 0, "y": "f" },
+        { "x": 1, "y": "m" },
+        { "x": 1, "y": "f" },
+        { "x": 2, "y": "m" },
+        { "x": 2, "y": "f" },
+        { "x": 3, "y": "m" },
+        { "x": 3, "y": "f" },
+        { "x": 4, "y": "m" },
+        { "x": 4, "y": "f" },
+        { "x": 7, "y": "f" },
+        { "x": -1, "y": "m" },
+        { "x": -1, "y": "f" },
+        { "x": -2, "y": "m" },
+        { "x": -2, "y": "f" },
+        { "x": -3, "y": "m" },
+        { "x": -3, "y": "f" },
+        { "x": -4, "y": "m" },
+        { "x": -4, "y": "f" },
+        { "x": -7, "y": "f" }
+    ]
+
+    const nearRelations = {
+        "-3": ["great grandfather", "great grandmother"],
+        "-2": ["grandfather", "grandmother"],
+        "-1": ["father", "mother"],
+        "0": ["me!", "me!"],
+        "1": ["son", "daughter"],
+        "2": ["grandson", "granddaughter"],
+        "3": ["great grandson", "great granddaughter"]
+    };
+
+    function generation(x, y) {
+        if (typeof (x) !== "number" || Math.abs(x) > 10) return "Generation parameter error. Must be -10 <= x <= 10.";
+        if (typeof (y) !== "string" || y.length !== 1 || ("mf".indexOf(y) === -1)) return "Gender parameter error. Must be 'm' or 'f'.";
+        y = y.toLowerCase();
+        let extraDistance = "";
+        let d = Math.abs(x) - 3;
+        if (d > 0) {
+            for(let i = 0; i < d; i += 1) extraDistance += "great ";
+            x = x < 0 ? -3 : 3;
+        }
+
+        return extraDistance + nearRelations[x][y === 'm' ? 0 : 1];
+    }
+
+    for(let i = 0; i < testCases.length; i += 1) {
+        let x = testCases[i].x;
+        let y = testCases[i].y;
+        let g = generation(x,y);
+        document.write(`<div>(${x},${y}) -> ${g}<\div>`)
+    }
+
+</script>
+
