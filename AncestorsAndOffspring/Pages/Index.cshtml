@@ -74,7 +74,7 @@
 
     function generation(x, y) {
         if (typeof (x) !== "number" || Math.abs(x) > 10) return "Generation parameter error. Must be -10 <= x <= 10.";
-        if (typeof (y) !== "string" || y.length !== 1 || ("mf".indexOf(y) === -1)) return "Gender parameter error. Must be 'm' or 'f'.";
+        if (typeof (y) !== "string" || y.length !== 1 || ("mf".indexOf(y.toLowerCase()) === -1)) return "Gender parameter error. Must be 'm' or 'f'.";
         y = y.toLowerCase();
         let extraDistance = "";
         let d = Math.abs(x) - 3;
